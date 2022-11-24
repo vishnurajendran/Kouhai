@@ -58,15 +58,14 @@ namespace Kouhai.Scripting.Proxies {
             }
         }
 
-        public Table Music
+        public string Music
         {
             get {
                 var val = sceneAudio.GetCurrentMusic();
-                return new AudioClipData(val.Item1, val.Item2, val.Item3).ToTable(ownerScript.luaScript); 
+                return val.Item1; 
             }
             set {
-                var clipData = AudioClipData.FromTable(value);
-                sceneAudio.PlayBackgroundMusic(clipData.ClipName, clipData.Loop, clipData.Volume); 
+                sceneAudio.PlayBackgroundMusic(value, true, 100); 
             }
         }
 
