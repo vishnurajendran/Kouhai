@@ -12,7 +12,6 @@ namespace Kouhai.Core
         public const float TextAnimationDuration = 0.025f;
 
         //Properties
-        private static bool _isWaitingForPlayer = false;
         public static bool IsWaitingForPlayerInput { get; set; }
 
         public static UnityEngine.Object InterpreterWaitPeriod
