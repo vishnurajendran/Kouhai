@@ -41,7 +41,7 @@ namespace Kouhai.Scripting.Proxies {
     }
 
     [MoonSharpUserData]
-    public class KouhaiScene : KouhaiRuntimeProxy
+    public class KouhaiSceneProxy : KouhaiRuntimeProxy
     {
         private Core.KouhaiSceneVisuals sceneVisuals;
         private Core.KouhaiSceneAudio sceneAudio;
@@ -79,10 +79,10 @@ namespace Kouhai.Scripting.Proxies {
         [MoonSharpHidden]
         public override KouhaiRuntimeProxy GetProxyInstance()
         {
-            return new KouhaiScene();
+            return new KouhaiSceneProxy();
         }
 
-        public KouhaiScene()
+        public KouhaiSceneProxy()
         {
             sceneVisuals = GameObject.FindObjectOfType<Core.KouhaiSceneVisuals>();
             sceneAudio = GameObject.FindObjectOfType<Core.KouhaiSceneAudio>();
