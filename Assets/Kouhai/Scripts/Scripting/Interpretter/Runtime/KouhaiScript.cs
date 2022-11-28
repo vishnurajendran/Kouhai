@@ -44,7 +44,7 @@ namespace Kouhai.Scripting.Interpretter
             luaScript.Globals[key] = global;
         }
 
-        private void Awake()
+        private void Start()
         {
             SetupScript();
         }
@@ -52,25 +52,20 @@ namespace Kouhai.Scripting.Interpretter
         private void SetupScript()
         {
             luaScript = new Script();
-            Environment.KouhaiEnv.SetupScript(this, source.name);
-
             vars = new List<string>();
             foreach (var global in luaScript.Globals.Keys)
             {
                 vars.Add(global.ToString());
             }
+
+            var func = Environment.KouhaiEnv.SetupScript(this, source.name);
+            StartCoroutine(StartSceneLogic(func));
         }
 
-        private void Start()
-        {
-            StartCoroutine(StartSceneLogic());
-        }
-
-        IEnumerator StartSceneLogic()
+        IEnumerator StartSceneLogic(DynValue func)
         {
             KouhaiDebug.Log("Scene Started");
-            var method = luaScript.Globals.Get(Symbols.KouhaiDefinedMethods.SCENE_START);
-            coroutine = luaScript.CreateCoroutine(method);
+            coroutine = luaScript.CreateCoroutine(func);
             coroutine.Coroutine.AutoYieldCounter = 1; //we yield after every frame.
             while (coroutine.Coroutine.State != CoroutineState.Dead)
             {

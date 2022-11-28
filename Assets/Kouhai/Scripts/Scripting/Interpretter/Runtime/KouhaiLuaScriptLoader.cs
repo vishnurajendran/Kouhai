@@ -24,7 +24,7 @@ namespace Kouhai.Scripting.Interpretter
             isInitialised = true;
         }
 
-        public void LoadScriptSource(Script script, string sourceFileName)
+        public DynValue LoadScriptSource(Script script, string sourceFileName)
         {
             if (!isInitialised)
                 Init();
@@ -32,17 +32,17 @@ namespace Kouhai.Scripting.Interpretter
             if (string.IsNullOrEmpty(sourceFileName))
             {
                 Debugging.KouhaiDebug.LogError($"Unable to load source, requested filename is null or empty");
-                return;
+                return DynValue.Nil;
             }
 
             if (!scripts.ContainsKey(sourceFileName))
             {
                 Debugging.KouhaiDebug.LogError($"Unable to load source for {sourceFileName}");
-                return;
+                return DynValue.Nil;
             }
 
             script.Options.ScriptLoader = this;
-            script.DoString(scripts[sourceFileName]);
+            return script.LoadString(scripts[sourceFileName]);
         }
 
         public override object LoadFile(string file, Table globalContext)

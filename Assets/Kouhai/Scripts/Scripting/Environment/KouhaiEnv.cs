@@ -19,13 +19,13 @@ namespace Kouhai.Scripting.Environment
             initialied = true;
         }
 
-        public static void SetupScript(Interpretter.KouhaiScript script, string fileName)
+        public static DynValue SetupScript(Interpretter.KouhaiScript script, string fileName)
         {
             if (!initialied)
                 Initialise();
 
-            scriptLoader.LoadScriptSource(script.luaScript, fileName);
             PrepareScript(script);
+            return scriptLoader.LoadScriptSource(script.luaScript, fileName);
         }
 
         private static void PrepareScript(Interpretter.KouhaiScript script)
