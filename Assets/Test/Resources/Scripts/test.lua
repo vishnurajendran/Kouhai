@@ -7,20 +7,36 @@ require "kouhai"
 background "highschool_bg_1"
 playmusic "normal_day_bgmusic"
 say {"Test", "Umm...? Hello?"}
-show {"kieren","normal","left"}
+show {"kieren","normal",CharacterPositions.Left}
 say {"Test", "Hello? Is this is working?...."}
-show {"kieren","derp","left"}
+show {"kieren","derp",CharacterPositions.Left}
 say {"Test", "Can you select an answer? I want tor check if this system is working"}
 choices {"Yes", "No"}
+
 --Handle player choice
 if(player_choice == 1) then
-   show {"kieren","grin","left"}
+   show {"kieren","grin",CharacterPositions.Left}
    say {"Test", "This is Yes!"}
 elseif (player_choice == 2) then
-   show {"kieren","disgust","left"}
+   show {"kieren","disgust",CharacterPositions.Left}
    say {"Test", "This is No!"}
 end
-show {"kieren","smile","left"}
+
+-- continue with story
+show {"kieren","smile",CharacterPositions.Left}
 say {"Test", "This works"}
-show {"kieren","normal","left"}
-say {"Test", "Thanks for the Help"}
+show {"kieren","normal",CharacterPositions.Left}
+say {"Test", "Thanks for the Help, now lets try the movement"}
+show {"kieren","smile",CharacterPositions.Left}
+say {"Test", "I'm gonna move to centre now"}
+shift {"kieren",CharacterPositions.Centre,0.25}
+say {"Test", "Alright so far so good"}
+say {"Test", "moving on..."}
+shift {"kieren",CharacterPositions.Right,0.5}
+say {"Test", "Awesome, now lets move to left again"}
+shift {"kieren",CharacterPositions.Left,0.5}
+say {"Test", "cool Imma peace out now!!"}
+say {"Test", "BYE!!"}
+hide "kieren"
+
+log "Game Over"

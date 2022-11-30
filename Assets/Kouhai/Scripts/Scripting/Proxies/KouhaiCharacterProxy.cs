@@ -36,4 +36,13 @@ public class KouhaiCharacterProxy : KouhaiRuntimeProxy
             characterSystem.ShowCharacter(name, expression, position);
         }
     }
+
+    public void HideCharacter(string name)
+    {
+        characterSystem.HideCharacter(name);
+    }
+
+    public void ShiftCharacter (Table dataTable) {
+        characterSystem.ShiftCharacter(dataTable.Get(1).String, dataTable.Get(2).String, (float)dataTable.Get(3).Number);
+    }
 }
