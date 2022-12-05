@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using RuntimeDeveloperConsole;
+using System.Linq;
 
 namespace Kouhai.Core.Input {
     public class KouhaiInputSystem : MonoBehaviour
@@ -38,7 +38,10 @@ namespace Kouhai.Core.Input {
         public System.Action OnUserNaviagtesDown;
 
         [SerializeField]
-        private SerializableDictionary<KeyInputTypes, KeyCode> keyConfig; 
+        private SerializableDictionary<KeyInputTypes, KeyCode> keyConfig;
+
+        private IConsoleWindow consoleWindow;
+
 
         private static string FilePath
         {
@@ -76,6 +79,12 @@ namespace Kouhai.Core.Input {
                 } 
                 return instance;
             }
+        }
+
+        private void Start()
+        {
+            var windows = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IConsoleWindow>();
+            consoleWindow = windows.FirstOrDefault();
         }
 
         private SerializableDictionary<KeyInputTypes, KeyCode> GetDefaultControlScheme()
@@ -123,7 +132,7 @@ namespace Kouhai.Core.Input {
 
         private void EmitEvent(KeyInputTypes type)
         {
-            if (BlockInputs)
+            if (BlockInputs || (consoleWindow != null  && consoleWindow.IsOpen))
                 return;
 
             switch (type)
