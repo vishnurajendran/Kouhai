@@ -6,7 +6,8 @@ using System.Linq;
 namespace Kouhai.Core.Input {
     public class KouhaiInputSystem : MonoBehaviour
     {
-        public enum KeyInputTypes
+        [System.Serializable]
+        private enum KeyInputTypes
         {
             SELECT,
             CANCEL,
@@ -16,8 +17,9 @@ namespace Kouhai.Core.Input {
 
         private const string CONFIG_FILE = "InputConfig.json";
 
-        public bool BlockInputs { get; set; } = false;
-
+        private bool BlockInputs { get; set; } = false;
+        private static string FilePath => $"{Application.dataPath}/{CONFIG_FILE}";
+        
         /// <summary>
         /// User presses select key
         /// </summary>
@@ -26,31 +28,17 @@ namespace Kouhai.Core.Input {
         /// User presses cancel key
         /// </summary>
         public System.Action OnUserCancels;
-
         /// <summary>
         /// User presses navigation up
         /// </summary>
         public System.Action OnUserNaviagtesUp;
-
         /// <summary>
         /// User presses navigation up
         /// </summary>
         public System.Action OnUserNaviagtesDown;
-
         [SerializeField]
         private SerializableDictionary<KeyInputTypes, KeyCode> keyConfig;
-
         private IConsoleWindow consoleWindow;
-
-
-        private static string FilePath
-        {
-            get
-            {
-                return $"{Application.dataPath}/{CONFIG_FILE}";
-            }
-        }
-
         private static SerializableDictionary<KeyInputTypes,KeyCode> SavedConfigData
         {
             get
@@ -98,7 +86,7 @@ namespace Kouhai.Core.Input {
             };
         }
 
-        public void LoadInputConfig()
+        private void LoadInputConfig()
         {
             if (!System.IO.File.Exists(FilePath))
             {
@@ -111,7 +99,7 @@ namespace Kouhai.Core.Input {
             keyConfig = SavedConfigData;
         }
 
-        void Update()
+        private void Update()
         {
             if (UnityEngine.Input.anyKeyDown)
             {

@@ -5,10 +5,20 @@
 --- set scene background
 ---@param bgName string
 function background(bgName)
-    Scene.Background = bgName
+    Scene.SetBackgroundImage(bgName)
 end
 
 --- plays a background music
 function playmusic(musicName)
-    Scene.Music = musicName
+    Scene.PlayBackgroundMusic(musicName)
+end
+
+--- plays a Ambiance
+function playambiance(ambianceName)
+    Scene.PlayAmbiance(ambianceName)
+end
+
+--- plays a SFX
+function playsfx(sfxName)
+    Scene.PlaySFX(sfxName)
 end

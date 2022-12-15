@@ -1,7 +1,7 @@
-using AutoSaver;
 using System.Threading.Tasks;
-using UnityEditor;
+using AutoSaver;
 using UnityEditor.SceneManagement;
+using UnityEditor;
 using UnityEngine;
 
 namespace UnityAutoSaver

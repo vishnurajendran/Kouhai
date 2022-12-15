@@ -27,7 +27,7 @@ namespace RuntimeDeveloperConsole {
         private Button closeButton;
         [SerializeField] 
         EventTrigger topbarEventTrigger;
-
+        
         public bool IsOpen => panelParent.gameObject.activeSelf;
 
         private void Start()

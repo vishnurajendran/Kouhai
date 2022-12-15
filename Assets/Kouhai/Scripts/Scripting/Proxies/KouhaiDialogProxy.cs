@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,11 +30,7 @@ namespace Kouhai.Scripting.Proxies
 
         public Table Say
         {
-            get
-            {
-                return null;
-            }
-
+            get => null;
             set
             {
                 var speaker = value.Get(1).String;
@@ -44,11 +41,7 @@ namespace Kouhai.Scripting.Proxies
 
         public Table Choices
         {
-            get
-            {
-                return null;
-            }
-
+            get =>null;
             set
             {
                 var list = new List<string>();
@@ -60,13 +53,7 @@ namespace Kouhai.Scripting.Proxies
                 choiceSystem.SetChoices(list);
             }
         }
-
-        public int PlayerChoice
-        {
-            get
-            {
-                return choiceSystem.PlayerChoice;
-            }
-        }
+        
+        public int PlayerChoice=> choiceSystem.PlayerChoice;
     }
 }

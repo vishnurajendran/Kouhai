@@ -7,6 +7,7 @@ require "kouhai"
 background "highschool_bg_1"
 playmusic "normal_day_bgmusic"
 say {"Test", "Umm...? Hello?"}
+playsfx "thud"
 show {"kieren","normal",CharacterPositions.Left}
 say {"Test", "Hello? Is this is working?...."}
 show {"kieren","derp",CharacterPositions.Left}
@@ -16,19 +17,23 @@ choices {"Yes", "No"}
 --Handle player choice
 if(player_choice == 1) then
    show {"kieren","grin",CharacterPositions.Left}
+   playsfx "thud"
    say {"Test", "This is Yes!"}
 elseif (player_choice == 2) then
    show {"kieren","disgust",CharacterPositions.Left}
+   playsfx "thud"
    say {"Test", "This is No!"}
 end
 
 -- continue with story
 show {"kieren","smile",CharacterPositions.Left}
 say {"Test", "This works"}
+playsfx "thud"
 show {"kieren","normal",CharacterPositions.Left}
 say {"Test", "Thanks for the Help, now lets try the movement"}
 show {"kieren","smile",CharacterPositions.Left}
 say {"Test", "I'm gonna move to centre now"}
+playsfx "thud"
 shift {"kieren",CharacterPositions.Centre,0.25}
 say {"Test", "Alright so far so good"}
 say {"Test", "moving on..."}

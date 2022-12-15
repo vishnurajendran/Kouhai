@@ -10,10 +10,10 @@ namespace Kouhai.Scripting.Interpretter
     public class KouhaiLuaScriptLoader : ScriptLoaderBase
     {
         private const string SCRIPTS_PATH = "Scripts/";
-        private static Dictionary<string, string> scripts = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> scripts = new Dictionary<string, string>();
         private static bool isInitialised = false;
 
-        public void Init()
+        private void Init()
         {
             KouhaiLuaScript[] result = Resources.LoadAll<KouhaiLuaScript>(SCRIPTS_PATH);
             foreach (var klua in result)

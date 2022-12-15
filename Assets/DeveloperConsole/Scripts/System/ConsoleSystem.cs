@@ -46,6 +46,11 @@ namespace RuntimeDeveloperConsole
             consoleWindow.Clear();
         }
 
+        public static string GetCommandSuggestion(string searchString)
+        {
+            return CommandDatabase.GetCommandSuggestion(searchString);
+        }
+
         public static void HandleCommand(string commandString)
         {
             if(string.IsNullOrEmpty(commandString)) {

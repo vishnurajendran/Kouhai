@@ -9,11 +9,8 @@ namespace Kouhai.Scripting.Interpretter
     {
         [SerializeField]
         private string _source;
-        public string Source { 
-            get{ 
-                return _source; 
-            }
-        }
+
+        public string Source => _source;
 
         public void Initialise(string text)
         {

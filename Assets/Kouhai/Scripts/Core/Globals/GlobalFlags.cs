@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kouhai.Core
 {
-    public class GlobalFlags
+    public static class GlobalFlags
     {
         //Consts
         public const float FadeDuration = 0.5f;
@@ -14,10 +14,7 @@ namespace Kouhai.Core
         //Properties
         public static bool IsWaitingForPlayerInput { get; set; }
 
-        public static UnityEngine.Object InterpreterWaitPeriod
-        {
-            get { return null; }
-        }
+        public static UnityEngine.Object InterpreterWaitPeriod => null;
 
     }
 }

@@ -9,7 +9,7 @@ namespace Kouhai.Scripting.Interpretter
 {
     public class KouhaiScript : MonoBehaviour
     {
-        public enum ExecutionState
+        private enum ExecutionState
         {
             NOT_STARTED,
             RUNNING,
@@ -26,15 +26,9 @@ namespace Kouhai.Scripting.Interpretter
         [SerializeField]
         internal List<string> vars;
 
-        internal DynValue coroutine;
-        bool IsInitialised
-        {
-            get
-            {
-                return luaScript != null;
-            }
-        }
-
+        private DynValue coroutine;
+        private bool IsInitialised => luaScript != null;
+        
         public void SetGlobal(string key, object global)
         {
             if (!IsInitialised)
@@ -62,7 +56,7 @@ namespace Kouhai.Scripting.Interpretter
             StartCoroutine(StartSceneLogic(func));
         }
 
-        IEnumerator StartSceneLogic(DynValue func)
+        private IEnumerator StartSceneLogic(DynValue func)
         {
             KouhaiDebug.Log("Scene Started");
             coroutine = luaScript.CreateCoroutine(func);

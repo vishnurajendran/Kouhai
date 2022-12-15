@@ -7,6 +7,7 @@ namespace RuntimeDeveloperConsole {
     public class CommandDatabase
     {
         private static SortedDictionary<string, MethodInfo> registeredCommands;
+        private static HashSet<string> commandHash;
 
         [RuntimeInitializeOnLoadMethod]
         private static void Initialise()
@@ -22,12 +23,19 @@ namespace RuntimeDeveloperConsole {
                           .Where(m => m.GetCustomAttributes(typeof(ConsoleCommandAttribute), false).Length > 0)
                           .ToArray();
 
+            commandHash = new HashSet<string>();
             foreach (var method in methods)
             {
+                commandHash.Add(method.Name.ToLower());
                 registeredCommands.Add(method.Name.ToLower(), method);
             }
             perfTimer.Stop();
             Debug.Log($"Initialising Console Database ({registeredCommands.Count} commands in {perfTimer.Elapsed.TotalSeconds}s)");
+        }
+
+        public static string GetCommandSuggestion(string searchString)
+        {
+            return commandHash.FirstOrDefault(a=>a.StartsWith(searchString));
         }
 
         public static string Run(ConsoleCommand command)

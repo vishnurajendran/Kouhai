@@ -43,7 +43,7 @@ namespace Kouhai.Core
                 textQueue = new Queue<string>();
 
             textQueue.Enqueue(dialogText);
-            ShowDialog(true, () => StartDialog());
+            ShowDialog(true, StartDialog);
             GlobalFlags.IsWaitingForPlayerInput = true;
         }
 
@@ -82,7 +82,7 @@ namespace Kouhai.Core
             StartCoroutine(LateContinue());
         }
 
-        IEnumerator LateContinue()
+        private IEnumerator LateContinue()
         {
             yield return GlobalFlags.InterpreterWaitPeriod;
             if (!CanInteract)
@@ -102,7 +102,7 @@ namespace Kouhai.Core
             }
         }
 
-        IEnumerator StartTextAnimationRoutine(string text, float interval, System.Action onComplete = null)
+        private IEnumerator StartTextAnimationRoutine(string text, float interval, System.Action onComplete = null)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -121,7 +121,7 @@ namespace Kouhai.Core
             onComplete?.Invoke();
         }
 
-        IEnumerator DisplayDialog(bool fadeIn, float dur, System.Action onComplete = null)
+        private IEnumerator DisplayDialog(bool fadeIn, float dur, System.Action onComplete = null)
         {
             float timeStep = 0;
             float start = dialogCanvas.alpha;

@@ -1,5 +1,6 @@
 using Kouhai.Scripting.Interpretter;
 using MoonSharp.Interpreter;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,9 @@ namespace Kouhai.Scripting.Proxies {
 
     public class AudioClipData
     {
-        public string ClipName;
-        public bool Loop;
-        public int Volume;
+        private string ClipName;
+        private bool Loop;
+        private int Volume;
 
         public AudioClipData() { }
         public AudioClipData(string name, bool loop, int volume)
@@ -43,39 +44,12 @@ namespace Kouhai.Scripting.Proxies {
     [MoonSharpUserData]
     public class KouhaiSceneProxy : KouhaiRuntimeProxy
     {
-        private Core.KouhaiSceneVisuals sceneVisuals;
-        private Core.KouhaiSceneAudio sceneAudio;
+        private readonly Core.KouhaiSceneVisuals sceneVisuals;
+        private readonly Core.KouhaiSceneAudio sceneAudio;
 
-        public string Background
-        {
-            get
-            {
-                return sceneVisuals.GetCurrent();
-            }
-            set
-            {
-                sceneVisuals.ChangeBackground(value);
-            }
-        }
-
-        public string Music
-        {
-            get {
-                var val = sceneAudio.GetCurrentMusic();
-                return val.Item1; 
-            }
-            set {
-                sceneAudio.PlayBackgroundMusic(value, true, 100); 
-            }
-        }
-
-        public void PlayBackgroundMusic(string backgroundClip, bool loop, int volume)
-        {
-            sceneAudio.PlayBackgroundMusic(backgroundClip, loop, volume);
-        }
-
-        [SerializeField]
+        [MoonSharpHidden]
         public override string Symbol => "Scene";
+
         [MoonSharpHidden]
         public override KouhaiRuntimeProxy GetProxyInstance()
         {
@@ -87,5 +61,26 @@ namespace Kouhai.Scripting.Proxies {
             sceneVisuals = GameObject.FindObjectOfType<Core.KouhaiSceneVisuals>();
             sceneAudio = GameObject.FindObjectOfType<Core.KouhaiSceneAudio>();
         }
+
+        public void SetBackgroundImage(string bgImageName)
+        {
+            sceneVisuals.ChangeBackground(bgImageName);
+        }
+
+        public void PlayBackgroundMusic(string backgroundClip)
+        {
+            sceneAudio.PlayBackgroundMusic(backgroundClip);
+        }
+
+        public void PlayAmbiance(string ambianceClip)
+        {
+            sceneAudio.PlayAmbiance(ambianceClip);
+        }
+
+        public void PlaySFX(string sfxClipName)
+        {
+            sceneAudio.PlaySFX(sfxClipName);
+        }
+
     }
 }

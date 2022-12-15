@@ -65,7 +65,7 @@ public class KouhaiCharacterHandler : MonoBehaviour
         }
     }
 
-    IEnumerator ShiftCharacterRoutine(Transform ch, Transform point, float time)
+    private static IEnumerator ShiftCharacterRoutine(Transform ch, Transform point, float time)
     {
         float timeStep = 0;
         var pos1 = ch.position;

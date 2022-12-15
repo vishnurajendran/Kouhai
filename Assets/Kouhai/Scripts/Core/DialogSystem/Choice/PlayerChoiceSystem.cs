@@ -40,7 +40,7 @@ namespace Kouhai.Core
             }));
         }
 
-        public void PlayerChoiceReset()
+        private void PlayerChoiceReset()
         {
             PlayerChoice = 0;
         }
@@ -64,9 +64,9 @@ namespace Kouhai.Core
             StartCoroutine(LoadChoicesRoutine(choicesList));
         }
 
-        IEnumerator LoadChoicesRoutine(List<string> choicesList)
+        private IEnumerator LoadChoicesRoutine(List<string> choicesList)
         {
-            yield return new WaitWhile(()=> { return dialogSystem.IsDialogOngoing; });
+            yield return new WaitWhile(()=> dialogSystem.IsDialogOngoing);
 
             if (choices == null)
                 choices = new List<PlayerChoiceItem>();
@@ -85,7 +85,7 @@ namespace Kouhai.Core
             StartCoroutine(Fade(true, GlobalFlags.FadeDuration));
         }
 
-        IEnumerator Fade(bool fadeIn, float dur, System.Action onComplete=null)
+        private IEnumerator Fade(bool fadeIn, float dur, System.Action onComplete=null)
         {
             float timeStep = 0;
             float currAlpha = cg.alpha;

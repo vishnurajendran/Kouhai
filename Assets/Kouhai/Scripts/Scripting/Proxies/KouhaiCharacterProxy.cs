@@ -23,11 +23,7 @@ public class KouhaiCharacterProxy : KouhaiRuntimeProxy
 
     public Table Show
     {
-        get
-        {
-            return null;
-        }
-
+        get => null;
         set
         {
             var name = value.Get(1).String;
