@@ -22,10 +22,6 @@ namespace Kouhai.Scripting.Interpretter
         [SerializeField]
         internal KouhaiLuaScript source;
         internal Script luaScript;
-
-        [SerializeField]
-        internal List<string> vars;
-
         private DynValue coroutine;
         private bool IsInitialised => luaScript != null;
         
@@ -46,12 +42,6 @@ namespace Kouhai.Scripting.Interpretter
         private void SetupScript()
         {
             luaScript = new Script();
-            vars = new List<string>();
-            foreach (var global in luaScript.Globals.Keys)
-            {
-                vars.Add(global.ToString());
-            }
-
             var func = Environment.KouhaiEnv.SetupScript(this, source.name);
             StartCoroutine(StartSceneLogic(func));
         }
@@ -63,6 +53,13 @@ namespace Kouhai.Scripting.Interpretter
             coroutine.Coroutine.AutoYieldCounter = 1; //we yield after every frame.
             while (coroutine.Coroutine.State != CoroutineState.Dead)
             {
+                if (GlobalFlags.IsWaitingForPlayerInput)
+                {
+                    state = ExecutionState.WAITING;
+                    yield return new WaitForEndOfFrame();
+                    continue;
+                }
+                
                 //we stop execution to wait for player Input
                 if (GlobalFlags.IsWaitingForPlayerInput)
                 {

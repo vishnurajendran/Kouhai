@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kouhai.Debugging
 {
-    public class KouhaiDebug : Debug
+    public static class KouhaiDebug
     {
         private const string KOUHAI_DEBUG_SYMBOL = "KouhaiDebug::";
 
@@ -26,6 +27,11 @@ namespace Kouhai.Debugging
         public static void LogWarning(string warning)
         {
             Debug.LogWarning($"{KOUHAI_DEBUG_SYMBOL}{warning}");
+        }
+        
+        public static void LogException(Exception exception)
+        {
+            Debug.LogException(exception);
         }
     }
 }
