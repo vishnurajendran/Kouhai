@@ -161,6 +161,11 @@ public class KouhaiSceneEffects : MonoBehaviour
             });
     }
 
+    /// <summary>
+    /// Sets saturation of scene
+    /// </summary>
+    /// <param name="saturation"></param>
+    /// <param name="duration"></param>
     public void SetSaturation(float saturation, float duration)
     {
         saturation = Mathf.Clamp((int)(saturation * 100),-100,100);
