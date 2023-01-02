@@ -25,7 +25,7 @@ namespace Kouhai.Core
 
         public void SetChoices(List<string> choices)
         {
-            GlobalFlags.IsWaitingForPlayerInput = true;
+            KouhaiGlobals.IsWaitingForPlayerInput = true;
             PlayerChoiceReset();
             LoadChoices(choices);
         }
@@ -33,9 +33,9 @@ namespace Kouhai.Core
         public void SetPlayerChoice(int id)
         {
             PlayerChoice = id;
-            StartCoroutine(Fade(false, GlobalFlags.FadeDuration, onComplete: () =>
+            StartCoroutine(Fade(false, KouhaiGlobals.FadeDuration, onComplete: () =>
             {
-                GlobalFlags.IsWaitingForPlayerInput = false;
+                KouhaiGlobals.IsWaitingForPlayerInput = false;
                 ClearChoices();
             }));
         }
@@ -82,7 +82,7 @@ namespace Kouhai.Core
             }
 
             LayoutRebuilder.MarkLayoutForRebuild(choiceParent.GetComponent<RectTransform>());
-            StartCoroutine(Fade(true, GlobalFlags.FadeDuration));
+            StartCoroutine(Fade(true, KouhaiGlobals.FadeDuration));
         }
 
         private IEnumerator Fade(bool fadeIn, float dur, System.Action onComplete=null)

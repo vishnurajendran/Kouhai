@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
 using Kouhai.Debugging;
@@ -18,22 +17,36 @@ namespace Kouhai.Scripting.Interpretter
 
         [SerializeField]
         private ExecutionState state;
-
         [SerializeField]
         internal KouhaiLuaScript source;
         internal Script luaScript;
         private DynValue coroutine;
         private bool IsInitialised => luaScript != null;
-        
+
         public void SetGlobal(string key, object global)
         {
             if (!IsInitialised)
                 return;
-
-            Debug.Log($"Setting {key}");
-            luaScript.Globals[key] = global;
+            
+            luaScript.Globals.Set(key, DynValue.FromObject(luaScript,global));
         }
 
+        public void RemoveGlobal(string key)
+        {
+            if (!IsInitialised)
+                return;
+
+            luaScript.Globals.Remove(key);
+        }
+
+        public DynValue GetGlobal(string key)
+        {
+            if(!IsInitialised)
+                return DynValue.Nil;
+            
+            return luaScript.Globals.Get(key);
+        }
+        
         private void Start()
         {
             SetupScript();
@@ -48,29 +61,32 @@ namespace Kouhai.Scripting.Interpretter
 
         private IEnumerator StartSceneLogic(DynValue func)
         {
+            //KouhaiDebugger.AttachDebugger(this);
             KouhaiDebug.Log("Scene Started");
             coroutine = luaScript.CreateCoroutine(func);
             coroutine.Coroutine.AutoYieldCounter = 1; //we yield after every frame.
             while (coroutine.Coroutine.State != CoroutineState.Dead)
             {
-                if (GlobalFlags.IsWaitingForPlayerInput)
+                //we stop execution to wait for player Input
+                if (KouhaiGlobals.IsWaitingForPlayerInput)
                 {
                     state = ExecutionState.WAITING;
                     yield return new WaitForEndOfFrame();
                     continue;
                 }
                 
-                //we stop execution to wait for player Input
-                if (GlobalFlags.IsWaitingForPlayerInput)
+                // Waiting for some seconds before executing next statmement.
+                var executionWait = GetGlobal(KouhaiGlobals.SCRIPT_WAIT_TIME_KEY);
+                if (executionWait != DynValue.Nil)
                 {
                     state = ExecutionState.WAITING;
-                    yield return new WaitForEndOfFrame();
-                    continue;
+                    RemoveGlobal(KouhaiGlobals.SCRIPT_WAIT_TIME_KEY);
+                    yield return new WaitForSeconds((float)executionWait.Number);
                 }
-
+                
                 state = ExecutionState.RUNNING;
                 coroutine.Coroutine.Resume();
-                yield return GlobalFlags.InterpreterWaitPeriod;
+                yield return KouhaiGlobals.DelayBetweenStatementsExecution;
             }
             KouhaiDebug.Log("Scene Ended");
         }

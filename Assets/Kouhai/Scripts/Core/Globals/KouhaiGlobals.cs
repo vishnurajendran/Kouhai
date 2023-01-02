@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Kouhai.Core
 {
-    public static class GlobalFlags
+    public static class KouhaiGlobals
     {
         //Consts
+        public const string SCRIPT_WAIT_TIME_KEY = "_KHLS_SCRIPT_EXEC_HALT";
+        
         /// <summary>
         /// Text dialog fade duration
         /// </summary>
@@ -31,7 +33,6 @@ namespace Kouhai.Core
         /// <summary>
         /// Wait period between executing two consecutive lua statetments
         /// </summary>
-        public static UnityEngine.Object InterpreterWaitPeriod => null;
-
+        public static UnityEngine.Object DelayBetweenStatementsExecution => null;
     }
 }

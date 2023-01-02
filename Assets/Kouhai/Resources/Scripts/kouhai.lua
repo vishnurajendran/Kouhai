@@ -5,6 +5,7 @@
 ---NOTE: This is intended to be used for only kouhai or core kouhai system headers,
 ---Any other third party headers should not be added here
 
+require "kouhai_utils"
 require "kouhai_debug"
 require "kouhai_scene"
 require "kouhai_dialog"

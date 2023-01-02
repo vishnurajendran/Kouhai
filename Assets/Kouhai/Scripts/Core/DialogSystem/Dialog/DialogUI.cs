@@ -32,7 +32,7 @@ namespace Kouhai.Core
                 if (!CanInteract)
                     return;
 
-                GlobalFlags.IsWaitingForPlayerInput = false;
+                KouhaiGlobals.IsWaitingForPlayerInput = false;
                 ContinueToNext();
             };
         }
@@ -44,7 +44,7 @@ namespace Kouhai.Core
 
             textQueue.Enqueue(dialogText);
             ShowDialog(true, StartDialog);
-            GlobalFlags.IsWaitingForPlayerInput = true;
+            KouhaiGlobals.IsWaitingForPlayerInput = true;
         }
 
         private void ShowDialog(bool show, System.Action onComplete = null)
@@ -58,7 +58,7 @@ namespace Kouhai.Core
                 dialogWindow = true;
             }
 
-            fadeRoutine = StartCoroutine(DisplayDialog(show, GlobalFlags.FadeDuration, () => { 
+            fadeRoutine = StartCoroutine(DisplayDialog(show, KouhaiGlobals.FadeDuration, () => { 
                 if(!show)
                     IsDialogOngoing=false;
                 onComplete?.Invoke();   
@@ -74,7 +74,7 @@ namespace Kouhai.Core
             if(textQueue.Count <= 0)
                 CanInteract = false;
 
-            textRoutine = StartCoroutine(StartTextAnimationRoutine(text, GlobalFlags.TextAnimationDuration, ()=> { CanInteract = true; }));
+            textRoutine = StartCoroutine(StartTextAnimationRoutine(text, KouhaiGlobals.TextAnimationDuration, ()=> { CanInteract = true; }));
         }
 
         private void ContinueToNext()
@@ -84,7 +84,7 @@ namespace Kouhai.Core
 
         private IEnumerator LateContinue()
         {
-            yield return GlobalFlags.InterpreterWaitPeriod;
+            yield return KouhaiGlobals.DelayBetweenStatementsExecution;
             if (!CanInteract)
                 yield break;
 

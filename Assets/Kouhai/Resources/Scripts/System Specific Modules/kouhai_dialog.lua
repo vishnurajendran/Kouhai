@@ -1,10 +1,6 @@
 --- This script adds intellisense and wrapper for
 --- Kouhai Dialog System
 
---- say dialog
---- format{"name to diplay","dialog"}
---- example {"kieren","Hi!"}
----@param speechTable table
 function say(speechTable)
     Dialog.Say = speechTable
 end

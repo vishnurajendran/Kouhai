@@ -4,6 +4,7 @@ require "kouhai"
 --This is not intended to be used as an example script
 --start here
 ::start::
+
 background "highschool_bg_1"
 playmusic "normal_day_bgmusic"
 say {"Test", "Umm...? Hello?"}
