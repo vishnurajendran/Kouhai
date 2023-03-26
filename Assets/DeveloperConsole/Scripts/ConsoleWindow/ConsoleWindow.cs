@@ -148,6 +148,9 @@ namespace RuntimeDeveloperConsole
 
         IEnumerator HandleTextUpdate()
         {
+            if(layoutToRebuild == null || scrollView == null)
+                yield break;
+            
             LayoutRebuilder.MarkLayoutForRebuild(layoutToRebuild);
             yield return new WaitForEndOfFrame();
             scrollView.normalizedPosition = Vector3.zero;

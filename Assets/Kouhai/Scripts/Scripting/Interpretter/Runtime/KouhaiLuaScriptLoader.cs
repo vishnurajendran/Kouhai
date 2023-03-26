@@ -11,6 +11,7 @@ namespace Kouhai.Scripting.Interpretter
     {
         private const string SCRIPTS_PATH = "Scripts/";
         private static readonly Dictionary<string, string> scripts = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> precompiledScripts = new Dictionary<string, string>();
         private static bool isInitialised = false;
 
         private void Init()
@@ -24,6 +25,11 @@ namespace Kouhai.Scripting.Interpretter
             isInitialised = true;
         }
 
+        private string CompileSource(string luaSourceCode)
+        {
+            return KouhaiPreCompiler.PreCompile(luaSourceCode);
+        }
+        
         public DynValue LoadScriptSource(Script script, string sourceFileName)
         {
             if (!isInitialised)
@@ -42,7 +48,16 @@ namespace Kouhai.Scripting.Interpretter
             }
 
             script.Options.ScriptLoader = this;
-            return script.LoadString(scripts[sourceFileName]);
+            var source = "";
+            
+            if(precompiledScripts.ContainsKey(sourceFileName))
+                source = precompiledScripts[sourceFileName];
+            else
+            {
+                source = KouhaiPreCompiler.PreCompile(scripts[sourceFileName]);
+                precompiledScripts.Add(sourceFileName, source);
+            }
+            return script.LoadString(source);
         }
 
         public override object LoadFile(string file, Table globalContext)

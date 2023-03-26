@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
+using Kouhai.Scripting.Environment;
+using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEngine;
 
@@ -17,6 +17,9 @@ namespace Kouhai.Scripting.Interpretter.Editor
             script.Initialise(File.ReadAllText(localPath));
             ctx.AddObjectToAsset(localPath, script, ico); // Pass your icon here
             ctx.SetMainObject(script);
+            
+            AssetDatabase.Refresh();
+            EditorUtility.RequestScriptReload();
         }
     }
 }

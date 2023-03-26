@@ -3,37 +3,41 @@ using Kouhai.Scripting.Serialisation;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
-[MoonSharpUserData]
-public class GameSaverProxy : KouhaiRuntimeProxy
+namespace Kouhai.Scripting.Proxies
 {
-    [MoonSharpHidden]
-    public override string Symbol => "SaveSystem";
-    [MoonSharpHidden]
-    public override KouhaiRuntimeProxy GetProxyInstance()
+    [MoonSharpUserData]
+    public class GameSaverProxy : KouhaiRuntimeProxy
     {
-        return new GameSaverProxy();
-    }
+        [MoonSharpHidden]
+        public override string Symbol => "SaveSystem";
+        [MoonSharpHidden]
+        public override KouhaiRuntimeProxy GetProxyInstance()
+        {
+            return new GameSaverProxy();
+        }
     
-    public bool HasKey(string key)
-    {
-        return PlayerPrefs.HasKey(key);
-    }
+        public bool HasKey(string key)
+        {
+            return PlayerPrefs.HasKey(key);
+        }
     
-    public void SaveData(string key, DynValue value)
-    {
-        var serialisedData = DynValueSerialiser.Serialise((value));
-        Debug.Log($"Saving {serialisedData} with Key {key}");
-        PlayerPrefs.SetString(key, serialisedData);
-    }
+        public void SaveData(string key, DynValue value)
+        {
+            var serialisedData = DynValueSerialiser.Serialise((value));
+            Debug.Log($"Saving {serialisedData} with Key {key}");
+            PlayerPrefs.SetString(key, serialisedData);
+        }
 
-    public DynValue GetData(Script script, string key)
-    {
-        Debug.Log("Script is Null? " + (script == null));
-        if(!HasKey(key))
-            return DynValue.Nil;
+        public DynValue GetData(Script script, string key)
+        {
+            Debug.Log("Script is Null? " + (script == null));
+            if(!HasKey(key))
+                return DynValue.Nil;
 
-        return DynValueSerialiser.Deserialise(script,
-            PlayerPrefs.GetString(key));
-    }
+            return DynValueSerialiser.Deserialise(script,
+                PlayerPrefs.GetString(key));
+        }
     
+    }
+ 
 }

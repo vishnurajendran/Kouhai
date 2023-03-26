@@ -1,9 +1,24 @@
 require "kouhai"
 
+-- start variable declaration block
+-- any variable declarations under this block will appear in the inspector
+::vars::
+
+numberVar = 0
+boolVar = false
+stringVar = "Hello World"
+
+::endvars::
+--- end variable declaration block
+
 --This is a Test script to test Lua execution
 --This is not intended to be used as an example script
 --start here
 ::start::
+
+if not b then
+   -- something comes here --
+end
 
 background "highschool_bg_1"
 playmusic "normal_day_bgmusic"

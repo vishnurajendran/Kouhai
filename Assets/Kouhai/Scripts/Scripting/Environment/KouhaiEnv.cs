@@ -1,3 +1,4 @@
+using System;
 using Kouhai.Scripting.Interpretter;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Interop;
@@ -12,6 +13,8 @@ namespace Kouhai.Scripting.Environment
         private static bool initialied = false;
         private static KouhaiLuaScriptLoader scriptLoader;
 
+        public static Action RequireRecompile;
+        
         private static void Initialise()
         {
             UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
@@ -19,6 +22,14 @@ namespace Kouhai.Scripting.Environment
             initialied = true;
         }
 
+        public static void RefreshEnv()
+        {
+            if (Application.isPlaying)
+                return;
+            
+            Initialise();
+        }
+        
         public static DynValue SetupScript(Interpretter.KouhaiScript script, string fileName)
         {
             if (!initialied)
@@ -31,7 +42,7 @@ namespace Kouhai.Scripting.Environment
         private static void PrepareScript(Interpretter.KouhaiScript script)
         {
             ReflectionProxyRegisterar.RegisterFor(script);
+            KouhaiEnvVarInjector.Inject(script);
         }
-
     }
 }

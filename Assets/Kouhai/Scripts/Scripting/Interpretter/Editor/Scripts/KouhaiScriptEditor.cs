@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
-[CustomEditor(typeof(Kouhai.Scripting.Interpretter.KouhaiScript))]
-[CanEditMultipleObjects]
-public class KouhaiScriptEditor : Editor
+namespace Kouhai.Scripting.Interpretter.Editor
 {
-    private static readonly string[] fieldExclusions = new string[] { "m_Script" };
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Kouhai.Scripting.Interpretter.KouhaiScript))]
+    [CanEditMultipleObjects]
+    public class KouhaiScriptEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-    }
+        private static readonly string[] fieldExclusions = new string[] { "m_Script" };
 
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+        }
+
+    }
 }

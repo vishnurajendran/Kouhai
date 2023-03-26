@@ -4,41 +4,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[MoonSharpUserData]
-public class KouhaiCharacterProxy : KouhaiRuntimeProxy
+namespace Kouhai.Scripting.Proxies
 {
-    private KouhaiCharacterHandler characterSystem;
-
-    public override string Symbol => "Character";
-
-    public override KouhaiRuntimeProxy GetProxyInstance()
+    [MoonSharpUserData]
+    public class KouhaiCharacterProxy : KouhaiRuntimeProxy
     {
-        return new KouhaiCharacterProxy();
-    }
+        private KouhaiCharacterHandler characterSystem;
 
-    public KouhaiCharacterProxy()
-    {
-        characterSystem = GameObject.FindObjectOfType<KouhaiCharacterHandler>();
-    }
+        public override string Symbol => "Character";
 
-    public Table Show
-    {
-        get => null;
-        set
+        public override KouhaiRuntimeProxy GetProxyInstance()
         {
-            var name = value.Get(1).String;
-            var expression = value.Get(2).String;
-            var position = value.Get(3).String;
-            characterSystem.ShowCharacter(name, expression, position);
+            return new KouhaiCharacterProxy();
         }
-    }
 
-    public void HideCharacter(string name)
-    {
-        characterSystem.HideCharacter(name);
-    }
+        public KouhaiCharacterProxy()
+        {
+            characterSystem = GameObject.FindObjectOfType<KouhaiCharacterHandler>();
+        }
 
-    public void ShiftCharacter (Table dataTable) {
-        characterSystem.ShiftCharacter(dataTable.Get(1).String, dataTable.Get(2).String, (float)dataTable.Get(3).Number);
+        public Table Show
+        {
+            get => null;
+            set
+            {
+                var name = value.Get(1).String;
+                var expression = value.Get(2).String;
+                var position = value.Get(3).String;
+                characterSystem.ShowCharacter(name, expression, position);
+            }
+        }
+
+        public void HideCharacter(string name)
+        {
+            characterSystem.HideCharacter(name);
+        }
+
+        public void ShiftCharacter(Table dataTable)
+        {
+            characterSystem.ShiftCharacter(dataTable.Get(1).String, dataTable.Get(2).String,
+                (float)dataTable.Get(3).Number);
+        }
     }
 }

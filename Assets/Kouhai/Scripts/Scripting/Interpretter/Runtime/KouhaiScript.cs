@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using MoonSharp.Interpreter;
 using Kouhai.Debugging;
 using Kouhai.Core;
+using Kouhai.Scripting.Environment;
 
 namespace Kouhai.Scripting.Interpretter
 {
+    [RequireComponent(typeof(KouhaiVariables))]
     public class KouhaiScript : MonoBehaviour
     {
         private enum ExecutionState
@@ -14,8 +17,6 @@ namespace Kouhai.Scripting.Interpretter
             RUNNING,
             WAITING
         }
-
-        [SerializeField]
         private ExecutionState state;
         [SerializeField]
         internal KouhaiLuaScript source;
@@ -23,6 +24,10 @@ namespace Kouhai.Scripting.Interpretter
         private DynValue coroutine;
         private bool IsInitialised => luaScript != null;
 
+        private KouhaiVariables variables;
+
+        private DynValue compiledScriptFunc;
+        
         public void SetGlobal(string key, object global)
         {
             if (!IsInitialised)
@@ -52,11 +57,43 @@ namespace Kouhai.Scripting.Interpretter
             SetupScript();
         }
 
-        private void SetupScript()
+        private void OnValidate()
         {
+            if(Application.isPlaying)
+                return;
+
+            
+            if (variables == null)
+                variables = GetComponent<KouhaiVariables>();
+
+            if (source == null)
+            {
+                variables.Clear();
+                return;
+            }
+            
+            KouhaiEnv.RequireRecompile -= TryCompile;
+            KouhaiEnv.RequireRecompile += TryCompile;
+
+            TryCompile();
+        }
+
+        private void TryCompile()
+        {
+            SetupScript(true);
+            luaScript.Call(compiledScriptFunc);
+            variables.Load(luaScript);
+        }
+        
+        private void SetupScript(bool loadOnly=false)
+        {
+            if(source == null)
+                return;
+            
             luaScript = new Script();
-            var func = Environment.KouhaiEnv.SetupScript(this, source.name);
-            StartCoroutine(StartSceneLogic(func));
+            compiledScriptFunc = Environment.KouhaiEnv.SetupScript(this, source.name);
+            if(!loadOnly)
+                StartCoroutine(StartSceneLogic(compiledScriptFunc));
         }
 
         private IEnumerator StartSceneLogic(DynValue func)
