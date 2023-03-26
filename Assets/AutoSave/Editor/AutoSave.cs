@@ -16,7 +16,6 @@ namespace UnityAutoSaver
             if (AutoSaveProperties.Properties.StartOnEditorLoad)
             {
                 autoSaveTask = AutoSaveLoop();
-                Debug.Log(autoSaveTask.Status);
             }
         }
 

@@ -18,7 +18,6 @@ namespace Kouhai.Scripting.Interpretter
                            $"{KouhaiPrecompilationSymbols.SCRIPT_END}";
             transformed = KouhaiTransformations.AddKouhaiVariableJumpers(transformed);
             transformed = CleanEmptySpaces(transformed);
-            Debug.Log(transformed);
             return transformed;
         }
 

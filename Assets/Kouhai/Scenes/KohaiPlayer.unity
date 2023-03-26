@@ -1829,7 +1829,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29042f738c84941976ff1c4161c6c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variableInfos: []
+  variableInfos:
+  - Name: numberVar
+  - Name: boolVar
+  - Name: stringVar
 --- !u!1 &1297893477
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ namespace Kouhai.Scripting.Interpretter
         
         private static bool ApplicationPlaying()
         {
-            Debug.Log("App Running" + Application.isPlaying);
             return Application.isPlaying;
         }
     }

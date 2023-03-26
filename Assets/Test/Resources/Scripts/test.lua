@@ -7,6 +7,7 @@ require "kouhai"
 numberVar = 0
 boolVar = false
 stringVar = "Hello World"
+canSidJump = false
 
 ::endvars::
 --- end variable declaration block
