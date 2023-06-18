@@ -3,6 +3,7 @@ using MoonSharp.Interpreter.Loaders;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kouhai.Core.AssetManagement;
 using UnityEngine;
 
 namespace Kouhai.Scripting.Interpretter
@@ -14,9 +15,24 @@ namespace Kouhai.Scripting.Interpretter
         private static readonly Dictionary<string, string> precompiledScripts = new Dictionary<string, string>();
         private static bool isInitialised = false;
 
+        private KouhaiLuaScript[] GetAllScripts()
+        {
+#if UNITY_EDITOR && !KOUHAI_APP_TESTING
+            return Resources.LoadAll<KouhaiLuaScript>(SCRIPTS_PATH);
+#else
+            if(Application.isPlaying)
+                return KouhaiAssetManager.LoadAssetAll<KouhaiLuaScript>(SCRIPTS_PATH);
+            
+            return Resources.LoadAll<KouhaiLuaScript>(SCRIPTS_PATH);
+#endif
+        }
+        
         private void Init()
         {
-            KouhaiLuaScript[] result = Resources.LoadAll<KouhaiLuaScript>(SCRIPTS_PATH);
+            KouhaiLuaScript[] result = GetAllScripts();
+            if(result == null)
+                return;
+            
             foreach (var klua in result)
             {
                 scripts.Add(klua.name, klua.Source);

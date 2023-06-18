@@ -1,101 +1,99 @@
 --- This script adds intellisense and wrapper for
---- Kouhai Dialog System
+--- Kouhai Scene System
 require "kouhai_essentials"
+
+KouhaiScene={}
+
+--- sets up scene in one go
+function KouhaiScene:SetupScene(bgName, musicName, ambianceName)
+    KouhaiScene:SetBackground(bgName or "")
+    KouhaiScene:PlayMusic(musicName or "")
+    KouhaiScene:PlayAmbiance(ambianceName or "")
+end
 
 --- set scene background
 ---@param bgName string
-function background(bgName)
+function KouhaiScene:SetBackground(bgName)
     Scene.SetBackgroundImage(bgName)
 end
 
 --- plays a background music
 --- @param musicName string
-function playmusic(musicName)
+function KouhaiScene:PlayMusic(musicName)
     Scene.PlayBackgroundMusic(musicName)
 end
 
 --- plays a Ambiance
 --- @param ambianceName string
-function playambiance(ambianceName)
+function KouhaiScene:PlayAmbiance(ambianceName)
     Scene.PlayAmbiance(ambianceName)
 end
 
 --- plays a SFX
 --- @param sfxName string
-function playsfx(sfxName)
+function KouhaiScene:PlaySfx(sfxName)
     Scene.PlaySFX(sfxName)
 end
 
 --- does a screen shake
---- takes a tuple with 2 numbers
---- first value is intensity, 
----second value is duration of shake
----@param shakeData tuple
-function shakescreen(shakeData)
-    Scene.ShakeScreen(shakeData[1], shakeData[2])
+--- @param color Color
+--- @param duration number
+function KouhaiScene:ShakeScreen(instensity,duration)
+    Scene.ShakeScreen(instensity, duration)
 end
 
 --- does a fade to black
---- takes a tuple of size 1
---- value defines duration of 
---- @param durTuple tuple
-function fadetoblack(durTuple)
-    Scene.FadeToBlack(durTuple[1])
+--- @param duration number
+function KouhaiScene:FadeToBlack(duration)
+    Scene.FadeToBlack(duration)
 end
 
 --- does a fade from black
---- takes a tuple of size 1
---- value defines duration of fade
---- @param durTuple tuple
-function fadefromblack(durTuple)
-    Scene.FadeFromBlack(durTuple[1])
+--- @param duration number
+function KouhaiScene:FadeFromBlack(duration)
+    Scene.FadeFromBlack(duration)
 end
 
 --- flash screen with a specific color
---- takes a tuple of Color and number
---- @param flashData tuple 
-function flashscreen(flashData)
-    Scene.FlashScreen(flashData[1], flashData[2])
+--- @param color Color
+--- @param duration number
+function KouhaiScene:FlashScreen(color, duration)
+    Scene.FlashScreen(color, duration)
 end
 
---- set bloom intensity
---- takes a tuple of intensity and duration
---- @param bloomData tuple
-function setbloom(bloomData)
-    Scene.SetBloom(bloomData[1], bloomData[2])
+--- sets scenebloom intensity
+--- @param instensity number
+--- @param duration number
+function KouhaiScene:SetBloom(intensity, duration)
+    Scene.SetBloom(intensity, duration)
 end
 
---- sets film grain intensity
---- takes a tuple of intensity and duration
---- @param grainData tuple
-function setgrain(grainData)
-    Scene.SetGrain(grainData[1], grainData[2])
+--- sets scenefilm grain intensity
+--- @param instensity number
+--- @param duration number
+function KouhaiScene:SetFilmGrain(intensity, duration)
+    Scene.SetGrain(intensity, duration)
 end
 
---- sets vignette intensity
---- takes a tuple of intensity and duration
---- @param vignetteintensityData tuple
-function setvignetteintensity(vignetteintensityData)
-    Scene.SetVignetteIntensity(vignetteintensityData[1], vignetteintensityData[2])
+--- sets scenevignette intensity
+--- @param instensity Color
+--- @param duration number
+--- @param instensity number
+function KouhaiScene:SetVignette(intensity, color, duration)
+    Scene.SetVignetteIntensity(intensity, duration)
+    Scene.SetVignetteColor(color, duration)
 end
 
---- sets vignette color
---- takes a tuple of color and duration
---- @param vignettecolorData tuple
-function setvignettecolor(vignettecolorData)
-    Scene.SetVignetteColor(vignettecolordata[1], vignettecolordata[2])
+--- sets scenesaturation
+--- @param instensity number
+--- @param duration number
+function KouhaiScene:SetSaturation(intensity, duration)
+    Scene.SetSaturation(intensity, duration)
 end
 
---- sets saturation
---- takes a tuple of intensity and duration
---- @param saturationData tuple
-function setsaturation(saturationData)
-    Scene.SetSaturation(saturationData[1], saturationData[2])
-end
-
---- set chromatic abberation
---- takes a tuple of intensity and duration
---- @param caData tuple
-function setchromaticaberration(caData)
-    Scene.SetChromaticAberration(caData[1], caData[2])
+--- sets scenechromatic abberation
+--- @param instensity number
+--- @param duration number
+function KouhaiScene:SetChromaticAberration(intensity, duration)
+    Scene.SetChromaticAberration(intensity, duration)
 end

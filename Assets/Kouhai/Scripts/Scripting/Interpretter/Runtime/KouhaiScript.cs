@@ -57,6 +57,11 @@ namespace Kouhai.Scripting.Interpretter
             SetupScript();
         }
 
+        public void SetSource(KouhaiLuaScript source)
+        {
+            this.source = source;
+        }
+        
         private void OnValidate()
         {
             if(Application.isPlaying)

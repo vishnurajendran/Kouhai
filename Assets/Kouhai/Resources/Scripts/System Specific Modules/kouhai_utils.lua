@@ -1,8 +1,11 @@
 --- This script provides some util functions
 --- to use while making experiances with kouhai
 
+--- Utility table for Kouhai
+Utility = {}
+
 --- Waits for a defined period of time in seconds
---- @param time number
-function waitforseconds(timeTuple)
-    Utils.WaitForSeconds(timeTuple[1])
+--- @param seconds number
+function Utility:Waitforseconds(seconds)
+    Utils.WaitForSeconds(seconds)
 end

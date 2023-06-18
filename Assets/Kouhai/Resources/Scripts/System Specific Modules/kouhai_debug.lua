@@ -1,17 +1,19 @@
 --- This script adds intellisense and wrapper for
 --- Kouhai Debugging System
 
+Debugging = {}
+
 --log message in cyan
-function log(msg)
+function Debugging:Log(msg)
     Debug.Log(msg)
 end
 
 --log warning message
-function logwarning(msg)
+function Debugging:LogWarning(msg)
     Debug.LogWarning(msg)
 end
 
 --log error message
-function logerror(msg)
+function Debugging:LogError(msg)
     Debug.LogError(msg)
 end

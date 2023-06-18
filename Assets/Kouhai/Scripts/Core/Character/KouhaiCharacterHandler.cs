@@ -1,6 +1,7 @@
 using Kouhai.Debugging;
 using System.Collections;
 using System.Collections.Generic;
+using Kouhai.Core.AssetManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +40,7 @@ public class KouhaiCharacterHandler : MonoBehaviour
             image = go.GetComponentInChildren<Image>();
             characterImages.Add(name, image);
         }
-        image.sprite = Resources.Load<Sprite>(characterImagePath);
+        image.sprite = KouhaiAssetManager.LoadAsset<Sprite>(characterImagePath);
         image.transform.position = transform.FindDeepChild($"Loc_{position}").position;
     }
 

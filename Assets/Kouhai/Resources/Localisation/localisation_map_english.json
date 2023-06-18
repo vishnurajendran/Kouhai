@@ -1,0 +1,10 @@
+{
+    "BootLoadingScreen_1":"Loading story pack, please wait",
+    "BootLoadingScreen_2":"Story pack loaded, setting up scene",
+    "ErrorEncountered":"Error Encountered!",
+    "BootLoadingScreenStoryPackErr":"Error Loading StoryPack {0}!<br>press Ok to return to library.",
+    "EntryPointMissing":"Entry point for this game is missing!<br>press Ok to return to library.",
+    "Ok":"Ok",
+    "Yes":"Yes",
+    "No":"No"
+}

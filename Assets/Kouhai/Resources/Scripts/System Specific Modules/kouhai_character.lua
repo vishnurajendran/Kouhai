@@ -1,24 +1,44 @@
 --- This script adds intellisense and wrapper for
---- Kouhai Character System
+--- Kouhai Character
 
+--- Define positions for character on screen
 CharacterPositions = { Left="left",Right="right",Centre="centre" }
 
+--- A table that represents a character
+KouhaiCharacter = {name="", position=CharacterPositions.Left}
+
+--- Create a kouhai character
+--- @param name string
+--- @param position CharacterPositions
+function KouhaiCharacter:New(name, position)
+    local o = {}
+    setmetatable(o, self)
+    self.__index = self
+    self.name = name or ""
+    self.position = position or CharacterPositions.Left
+    return o
+end
+
 --- show character
---- format{"name","expression","position"}
---- example {"kieren","normal","left"}
----@param characterTable table 
-function show(characterTable)
-    Character.Show = characterTable
+--- @param expression string
+function KouhaiCharacter:Show(expression)
+    Character.Show = {self.name, expression or "",self.position}
 end
 
---- Hides characters
-function hide(charactername)
-    Character.HideCharacter(charactername)
+--- show character
+function KouhaiCharacter:Hide()
+    Character.HideCharacter(self.name)
 end
 
---- Shifts character
---- format{"name","position","time"}
---- example {"kieren","left","0.5"}
-function shift(characterTable)
-    Character.ShiftCharacter(characterTable)
+--- Changes position of the character on the screen
+--- @param position CharacterPositions
+function KouhaiCharacter:SetPosition(newPosition, shiftSpeed)
+    self.position = newPosition
+    Character.ShiftCharacter({self.name, newPosition, shiftSpeed or 0})
+end
+
+--- Make character speak a dialog
+--- @param dialog string
+function KouhaiCharacter:Speak(dialog)
+    Dialog.Say = {self.name, dialog or ""}
 end

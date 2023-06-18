@@ -2,6 +2,7 @@ using MoonSharp.Interpreter;
 using RuntimeDeveloperConsole;
 using System.Collections;
 using System.Collections.Generic;
+using Kouhai.Core.AssetManagement;
 using UnityEngine;
 
 namespace Kouhai.Core
@@ -22,21 +23,21 @@ namespace Kouhai.Core
         public void PlayBackgroundMusic(string backgroundClipName)
         {
             Debug.Log("Playing " + backgroundClipName);
-            background.clip = Resources.Load<AudioClip>($"{RES_BKG_AUDIO_PATH}{backgroundClipName}");
+            background.clip = KouhaiAssetManager.LoadAsset<AudioClip>($"{RES_BKG_AUDIO_PATH}{backgroundClipName}");
             background.Play();
         }
 
         public void PlayAmbiance(string ambianceClipName)
         {
             Debug.Log("Playing " + ambianceClipName);
-            ambiance.clip = Resources.Load<AudioClip>($"{RES_AMB_AUDIO_PATH}{ambianceClipName}");
+            ambiance.clip = KouhaiAssetManager.LoadAsset<AudioClip>($"{RES_AMB_AUDIO_PATH}{ambianceClipName}");
             ambiance.Play();
         }
 
         public void PlaySFX(string sfxClipName)
         {
             Debug.Log("Playing " + sfxClipName);
-            sfx.clip = Resources.Load<AudioClip>($"{RES_SFX_AUDIO_PATH}{sfxClipName}");
+            sfx.clip = KouhaiAssetManager.LoadAsset<AudioClip>($"{RES_SFX_AUDIO_PATH}{sfxClipName}");
             sfx.Play();
         }
 
