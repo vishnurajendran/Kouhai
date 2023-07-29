@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine.Serialization;
 
 namespace Kouhai.Publishing
@@ -15,5 +17,13 @@ namespace Kouhai.Publishing
         public bool DevelopementMode=false;
         public bool PackImages = true;
         public bool PackAudio = true;
+
+        public static KouhaiPublishingData GetFromFile(string path)
+        {
+            if (!File.Exists(path))
+                return null;
+
+            return JsonConvert.DeserializeObject<KouhaiPublishingData>(File.ReadAllText(path));
+        }
     }
 }

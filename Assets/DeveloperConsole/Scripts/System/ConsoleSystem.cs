@@ -36,7 +36,9 @@ namespace RuntimeDeveloperConsole
                     msg = "LOG:: {0}";
                     break;
             }
-            consoleWindow.PrintLineToConsole(string.Format(msg, message));
+            
+            if(consoleWindow != null)
+                consoleWindow.PrintLineToConsole(string.Format(msg, message));
         }
 
         public static void ClearConsoleWindow()

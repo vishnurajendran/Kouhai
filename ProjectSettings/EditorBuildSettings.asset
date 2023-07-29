@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Kouhai/Scenes/KouhaiHome.unity
+    guid: 84b76b3732508fd43aec809b925972b6
+  - enabled: 1
+    path: Assets/Kouhai/Scenes/KouhaiPlayer.unity
+    guid: 1d1816eb3c59e304eaed4b1b46c1e864
   m_configObjects: {}

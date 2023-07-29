@@ -1,5 +1,7 @@
 using System.Collections;
+using System.IO;
 using Kouhai.Core.AssetManagement;
+using Kouhai.Runtime.Client;
 using Kouhai.Scripting.Interpretter;
 using Kouhai.Scripts.Runtime.System.Notification;
 using UnityEngine;
@@ -34,7 +36,7 @@ namespace Kouhai.Runtime.System
 
         private void LoadStoryPack()
         {
-            var packName = "com.Kouhai.Kouhai Project.0_1_dev";
+            var packName = Path.GetFileName(KouhaiCrossSceneData.Instance.SelectedGame);
             KouhaiAssetManager.LoadStoryPack(packName, (success) =>
             {
                 if (success)

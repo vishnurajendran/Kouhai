@@ -73,6 +73,7 @@ namespace Kouhai.Editor.Publishing
             var width = this.position.width - 50;
             var height = width / aspect;
     
+            EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical();
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -85,7 +86,6 @@ namespace Kouhai.Editor.Publishing
         
         private void DrawBasicForm()
         {
-            EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical("groupbox");
             EditorGUILayout.LabelField("Basic Info", EditorStyles.whiteLargeLabel);
             publishData.ProjectName = EditorGUILayout.TextField("Project Name", publishData.ProjectName);
@@ -102,7 +102,7 @@ namespace Kouhai.Editor.Publishing
 
         private void DrawAssetPacking()
         {
-            EditorGUILayout.Space(10);
+            EditorGUILayout.Space(7);
             EditorGUILayout.BeginVertical("groupbox");
             EditorGUILayout.LabelField("Build Info", EditorStyles.whiteLargeLabel);
             publishData.DevelopementMode = EditorGUILayout.Toggle("Develpment build", publishData.DevelopementMode);

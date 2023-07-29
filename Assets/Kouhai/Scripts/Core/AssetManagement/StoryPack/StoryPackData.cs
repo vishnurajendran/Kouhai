@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using Kouhai.Constants;
 using Kouhai.Publishing;
 using Newtonsoft.Json;
 using CompressionLevel = System.IO.Compression.CompressionLevel;
@@ -16,14 +17,7 @@ namespace Kouhai.Core.AssetManagement
     [Serializable]
     public class StoryPackData
     {
-        private const string PACK_EXTENSION = "khpak";
-        private const string PUBLISH_FILENAME = ".stpub";
-        private const string ASSET_MAP = ".assetmap";
-        private const string ASSET_PAK_FILENAME = ".asset";
-        private const string UNPACKED_ASSET_DIR = "Assets";
-        public const string RELDIR_TMP = "[RelativeDirectory]";
         public Dictionary<Type, IAssetList> assetListMap;
-
         private DirectoryInfo tempGameAssetDirectory;
         
         public static async Task<StoryPackData> LoadPack(string path, string targetDir)
@@ -40,25 +34,25 @@ namespace Kouhai.Core.AssetManagement
             
             //write publish data
             var pubJson = JsonConvert.SerializeObject(publishingData);
-            var pubInfoPath = $"{packageDir}/{PUBLISH_FILENAME}";
+            var pubInfoPath = $"{packageDir}/{KouhaiConstants.PUBLISH_FILENAME}";
             File.WriteAllText(pubInfoPath, pubJson);
             
             //write asset map data
             var assetMapJson = JsonConvert.SerializeObject(assetMap);
-            var assetMapPath = $"{packageDir}/{ASSET_MAP}";
+            var assetMapPath = $"{packageDir}/{KouhaiConstants.ASSET_MAP}";
             File.WriteAllText(assetMapPath, assetMapJson);
             
             //create archive of asset directory
             var dirInfo = new DirectoryInfo(assetDir);
             var ogName = dirInfo.Name;
-            RenameDirectory(dirInfo,$"{UNPACKED_ASSET_DIR}");
-            var assetFileName = $"{packageDir}/{ASSET_PAK_FILENAME}";
+            RenameDirectory(dirInfo,$"{KouhaiConstants.UNPACKED_ASSET_DIR}");
+            var assetFileName = $"{packageDir}/{KouhaiConstants.ASSET_PAK_FILENAME}";
             ZipFile.CreateFromDirectory(dirInfo.FullName, assetFileName,CompressionLevel.Optimal,true);
             RenameDirectory(dirInfo,ogName);
 
             //create archive of package directory
             var version = $"{publishingData.Version.Replace(".", "_")}_{(publishingData.DevelopementMode ? "dev" : "")}";
-            var targetPath = $"{targetDir}/com.{publishingData.Developer}.{publishingData.ProjectName}.{version}.{PACK_EXTENSION}";
+            var targetPath = $"{targetDir}/com.{publishingData.Developer}.{publishingData.ProjectName}.{version}.{KouhaiConstants.PACK_EXTENSION}";
             if(File.Exists(targetPath))
                 File.Delete(targetPath);
             
@@ -108,8 +102,8 @@ namespace Kouhai.Core.AssetManagement
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var assetFilePath = $"{gameFolder}/{ASSET_PAK_FILENAME}";
-            var assetMapTargetFilePath = $"{gameFolder}/{ASSET_MAP}";
+            var assetFilePath = $"{gameFolder}/{KouhaiConstants.ASSET_PAK_FILENAME}";
+            var assetMapTargetFilePath = $"{gameFolder}/{KouhaiConstants.ASSET_MAP}";
             
             //unpack stuff
             ZipFile.ExtractToDirectory(assetFilePath,targetDir);
@@ -119,10 +113,10 @@ namespace Kouhai.Core.AssetManagement
             var keys = assetMap.Keys.ToList();
             for (int i = 0; i < keys.Count; i++)
             {
-                assetMap[keys[i]] = assetMap[keys[i]].Replace(RELDIR_TMP, $"{targetDir}/{UNPACKED_ASSET_DIR}");
+                assetMap[keys[i]] = assetMap[keys[i]].Replace(KouhaiConstants.RELDIR_TMP, $"{targetDir}/{KouhaiConstants.UNPACKED_ASSET_DIR}");
             }
             
-            var isolatedAssetPath = $"{targetDir}/{UNPACKED_ASSET_DIR}";
+            var isolatedAssetPath = $"{targetDir}/{KouhaiConstants.UNPACKED_ASSET_DIR}";
             
             //Load scripts
             var scriptAssetList = AssetListGenerator.GetScriptAssetList();

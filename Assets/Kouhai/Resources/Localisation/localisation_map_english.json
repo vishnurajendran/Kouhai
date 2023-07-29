@@ -4,6 +4,12 @@
     "ErrorEncountered":"Error Encountered!",
     "BootLoadingScreenStoryPackErr":"Error Loading StoryPack {0}!<br>press Ok to return to library.",
     "EntryPointMissing":"Entry point for this game is missing!<br>press Ok to return to library.",
+    "DeleteGameTitle":"Delete Game",
+    "DeleteGameDesc":"You are about to delete this game from your library.\nClick \"Yes\" to continue",
+    "Library":"Library",
+    "Store":"Store",
+    "Settings":"Settings",
+    "Downloads":"Downloads",
     "Ok":"Ok",
     "Yes":"Yes",
     "No":"No"

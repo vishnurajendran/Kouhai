@@ -20,6 +20,12 @@ public class KouhaiAppLocalisation
         ErrorEncountered,
         BootLoadingScreenStoryPackErr,
         EntryPointMissing,
+        DeleteGameTitle,
+        DeleteGameDesc,
+        Library,
+        Store,
+        Settings,
+        Downloads,
         Ok,
         Yes,
         No

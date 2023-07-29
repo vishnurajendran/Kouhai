@@ -64,7 +64,8 @@ namespace RuntimeDeveloperConsole
 
         private void OnInputfieldCarret()
         {
-            inputField.MoveToEndOfLine(false, false);
+            if(!string.IsNullOrEmpty(inputField.text))
+                inputField.MoveToEndOfLine(false, false);
         }
 
         private void UpdateSuggestions(string text)

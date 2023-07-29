@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Kouhai.Constants;
 using Kouhai.Core.AssetManagement;
 using Kouhai.Publishing;
 using Kouhai.Scripting.Interpretter;
@@ -129,7 +130,7 @@ namespace Kouhai.Scripts.Editor.Publishing.BuildPipeline
         {
             foreach (var asset in assetList)
             {
-                CopyFile(asset.filePath, $"{asset.relativePath.Replace(StoryPackData.RELDIR_TMP, assetDirectory)}");
+                CopyFile(asset.filePath, $"{asset.relativePath.Replace(KouhaiConstants.RELDIR_TMP, assetDirectory)}");
             }
         }
 
@@ -180,8 +181,8 @@ namespace Kouhai.Scripts.Editor.Publishing.BuildPipeline
                        
                         var split = assetPath.Split("/Resources/");
                         var filePath = split[split.Length - 1];
-                        assetMap.Add(filePath,$"{StoryPackData.RELDIR_TMP}/{filePath}");
-                        assetList.Add((diskfilePath,$"{StoryPackData.RELDIR_TMP}/{filePath}"));
+                        assetMap.Add(filePath,$"{KouhaiConstants.RELDIR_TMP}/{filePath}");
+                        assetList.Add((diskfilePath,$"{KouhaiConstants.RELDIR_TMP}/{filePath}"));
                     }
                 }
                 EditorUtility.ClearProgressBar();
