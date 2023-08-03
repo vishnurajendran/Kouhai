@@ -83,8 +83,12 @@ namespace Kouhai.Runtime.System
             
             if (!IsCompleted)
             {
+                
 #if DOWNLOAD_RESUME_SUPPORTED
-                await ContinueDownload();
+                if (CurrentProgress <= 0f)
+                   await StartDownload();
+                else
+                   await ContinueDownload();
 #else
                 await StartDownload();
 #endif
@@ -94,6 +98,7 @@ namespace Kouhai.Runtime.System
 #if DOWNLOAD_RESUME_SUPPORTED
         private async Task ContinueDownload()
         {
+            Debug.LogError("This feature is currently not supported");
             //TODO: Add support for download resuming functionality
             //download resume is not currently supported
             //this feature requires server side supported
