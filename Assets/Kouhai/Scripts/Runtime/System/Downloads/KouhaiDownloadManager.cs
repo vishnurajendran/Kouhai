@@ -89,10 +89,6 @@ namespace Kouhai.Runtime.System
                 await StartDownload();
 #endif
             }
-            else
-            {
-                await StartDownload();
-            }
         }
 
 #if DOWNLOAD_RESUME_SUPPORTED
