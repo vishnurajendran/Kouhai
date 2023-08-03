@@ -15,6 +15,8 @@ namespace Kouhai.Constants
         
         public const string PLAYER_SCENE = "KouhaiPlayer";
         public const string HOME_SCENE = "KouhaiHome";
+
+        public const int MAX_DOWNLOAD_BUFFER = 1024 * 1024;
     }
   
 }
