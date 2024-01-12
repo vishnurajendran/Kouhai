@@ -63,7 +63,7 @@ namespace Kouhai.Runtime.Client
 
         private void CreateEntry(string gameDirPath)
         {
-            var publishInfoPath = $"{gameDirPath}/{KouhaiConstants.PUBLISH_FILENAME}";
+            var publishInfoPath = $"{gameDirPath}/{KouhaiStoryPackConstants.PUBLISH_FILENAME}";
             var publishInfo = KouhaiPublishingData.GetFromFile(publishInfoPath);
             if (publishInfoPath == null)
                 return;
@@ -107,7 +107,7 @@ namespace Kouhai.Runtime.Client
         private void PlayGame(string path)
         {
             KouhaiCrossSceneData.Instance.SetSelectedGameDirectory(path);
-            SceneManager.LoadScene(KouhaiConstants.PLAYER_SCENE);
+            SceneManager.LoadScene(KouhaiSceneConstants.PLAYER_SCENE);
         }
 
         private void DeleteGameDirectory(string path)
@@ -126,7 +126,7 @@ namespace Kouhai.Runtime.Client
 
         private void DeleteGame(string path)
         {
-            Debug.Log($"Deleting Game! {path}");
+            Debug.Log($"Deleting Game! {path} (NO-OP)");
         }
         
         private void CloseDetails()
@@ -142,18 +142,22 @@ namespace Kouhai.Runtime.Client
             yield return new WaitForEndOfFrame();
             var currSize = rectTransform.sizeDelta;
             var currPos = rectTransform.anchoredPosition;
-            float timeStep = 0;
+
+            rectTransform.sizeDelta = targetSize;
+            rectTransform.anchoredPosition = Vector2.zero;
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.offsetMax = rectTransform.offsetMin = Vector2.zero;
+            /*float timeStep = 0;
             while (timeStep <= 1)
             {
                 timeStep += Time.deltaTime / 0.15f;
                 rectTransform.sizeDelta = Vector2.Lerp(currSize, targetSize, timeStep);
                 rectTransform.anchoredPosition = Vector2.Lerp(currPos, Vector2.zero, timeStep);
                 yield return new WaitForEndOfFrame();
-            }
+            }*/
+            
             yield return new WaitForEndOfFrame();
-            rectTransform.anchorMin = Vector2.zero;
-            rectTransform.anchorMax = Vector2.one;
-            rectTransform.offsetMax = rectTransform.offsetMin = Vector2.zero;
             onComplete?.Invoke();
         }
         

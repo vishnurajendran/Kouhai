@@ -130,7 +130,7 @@ namespace Kouhai.Scripts.Editor.Publishing.BuildPipeline
         {
             foreach (var asset in assetList)
             {
-                CopyFile(asset.filePath, $"{asset.relativePath.Replace(KouhaiConstants.RELDIR_TMP, assetDirectory)}");
+                CopyFile(asset.filePath, $"{asset.relativePath.Replace(KouhaiStoryPackConstants.RELDIR_TMP, assetDirectory)}");
             }
         }
 
@@ -181,8 +181,8 @@ namespace Kouhai.Scripts.Editor.Publishing.BuildPipeline
                        
                         var split = assetPath.Split("/Resources/");
                         var filePath = split[split.Length - 1];
-                        assetMap.Add(filePath,$"{KouhaiConstants.RELDIR_TMP}/{filePath}");
-                        assetList.Add((diskfilePath,$"{KouhaiConstants.RELDIR_TMP}/{filePath}"));
+                        assetMap.Add(filePath,$"{KouhaiStoryPackConstants.RELDIR_TMP}/{filePath}");
+                        assetList.Add((diskfilePath,$"{KouhaiStoryPackConstants.RELDIR_TMP}/{filePath}"));
                     }
                 }
                 EditorUtility.ClearProgressBar();

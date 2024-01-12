@@ -14,6 +14,7 @@ namespace Kouhai.Core {
 
         public void ChangeBackground(string backgroundImageName)
         {
+            Debug.Log($"{RES_BKG_IMG_PATH}{backgroundImageName}");
             background.sprite = KouhaiAssetManager.LoadAsset<Sprite>($"{RES_BKG_IMG_PATH}{backgroundImageName}");
         }
 

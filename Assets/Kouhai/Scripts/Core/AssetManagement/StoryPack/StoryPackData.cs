@@ -34,25 +34,25 @@ namespace Kouhai.Core.AssetManagement
             
             //write publish data
             var pubJson = JsonConvert.SerializeObject(publishingData);
-            var pubInfoPath = $"{packageDir}/{KouhaiConstants.PUBLISH_FILENAME}";
+            var pubInfoPath = $"{packageDir}/{KouhaiStoryPackConstants.PUBLISH_FILENAME}";
             File.WriteAllText(pubInfoPath, pubJson);
             
             //write asset map data
             var assetMapJson = JsonConvert.SerializeObject(assetMap);
-            var assetMapPath = $"{packageDir}/{KouhaiConstants.ASSET_MAP}";
+            var assetMapPath = $"{packageDir}/{KouhaiStoryPackConstants.ASSET_MAP}";
             File.WriteAllText(assetMapPath, assetMapJson);
             
             //create archive of asset directory
             var dirInfo = new DirectoryInfo(assetDir);
             var ogName = dirInfo.Name;
-            RenameDirectory(dirInfo,$"{KouhaiConstants.UNPACKED_ASSET_DIR}");
-            var assetFileName = $"{packageDir}/{KouhaiConstants.ASSET_PAK_FILENAME}";
+            RenameDirectory(dirInfo,$"{KouhaiStoryPackConstants.UNPACKED_ASSET_DIR}");
+            var assetFileName = $"{packageDir}/{KouhaiStoryPackConstants.ASSET_PAK_FILENAME}";
             ZipFile.CreateFromDirectory(dirInfo.FullName, assetFileName,CompressionLevel.Optimal,true);
             RenameDirectory(dirInfo,ogName);
 
             //create archive of package directory
             var version = $"{publishingData.Version.Replace(".", "_")}_{(publishingData.DevelopementMode ? "dev" : "")}";
-            var targetPath = $"{targetDir}/com.{publishingData.Developer}.{publishingData.ProjectName}.{version}.{KouhaiConstants.PACK_EXTENSION}";
+            var targetPath = $"{targetDir}/com.{publishingData.Developer}.{publishingData.ProjectName}.{version}.{KouhaiStoryPackConstants.PACK_EXTENSION}";
             if(File.Exists(targetPath))
                 File.Delete(targetPath);
             
@@ -102,8 +102,8 @@ namespace Kouhai.Core.AssetManagement
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var assetFilePath = $"{gameFolder}/{KouhaiConstants.ASSET_PAK_FILENAME}";
-            var assetMapTargetFilePath = $"{gameFolder}/{KouhaiConstants.ASSET_MAP}";
+            var assetFilePath = $"{gameFolder}/{KouhaiStoryPackConstants.ASSET_PAK_FILENAME}";
+            var assetMapTargetFilePath = $"{gameFolder}/{KouhaiStoryPackConstants.ASSET_MAP}";
             
             //unpack stuff
             ZipFile.ExtractToDirectory(assetFilePath,targetDir);
@@ -113,10 +113,10 @@ namespace Kouhai.Core.AssetManagement
             var keys = assetMap.Keys.ToList();
             for (int i = 0; i < keys.Count; i++)
             {
-                assetMap[keys[i]] = assetMap[keys[i]].Replace(KouhaiConstants.RELDIR_TMP, $"{targetDir}/{KouhaiConstants.UNPACKED_ASSET_DIR}");
+                assetMap[keys[i]] = assetMap[keys[i]].Replace(KouhaiStoryPackConstants.RELDIR_TMP, $"{targetDir}/{KouhaiStoryPackConstants.UNPACKED_ASSET_DIR}");
             }
             
-            var isolatedAssetPath = $"{targetDir}/{KouhaiConstants.UNPACKED_ASSET_DIR}";
+            var isolatedAssetPath = $"{targetDir}/{KouhaiStoryPackConstants.UNPACKED_ASSET_DIR}";
             
             //Load scripts
             var scriptAssetList = AssetListGenerator.GetScriptAssetList();

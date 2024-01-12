@@ -60,8 +60,10 @@ namespace Kouhai.Core.AssetManagement
         public Object GetAsset(string path)
         {
             if (spriteAssetMap.ContainsKey(path))
+            {
                 return spriteAssetMap[path];
-            
+            }
+
             return null;
         }
         

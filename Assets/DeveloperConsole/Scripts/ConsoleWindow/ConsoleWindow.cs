@@ -144,7 +144,8 @@ namespace RuntimeDeveloperConsole
                 return;
 
             consoleOutput.text += $"{ConsoleConstants.TERM_KEY}{message}\n";
-            StartCoroutine(HandleTextUpdate());
+            if(this != null)
+                StartCoroutine(HandleTextUpdate());
         }
 
         IEnumerator HandleTextUpdate()

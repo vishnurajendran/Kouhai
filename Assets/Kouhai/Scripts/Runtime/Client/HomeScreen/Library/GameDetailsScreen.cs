@@ -22,7 +22,7 @@ namespace Kouhai.Runtime.Client
 
         public void Initialise(string gameDirectory, Action<string> OnPlayClicked,Action<string> OnDeleteClicked, Action OnCloseClicked)
         {
-            var pubPath = $"{gameDirectory}/{KouhaiConstants.PUBLISH_FILENAME}";
+            var pubPath = $"{gameDirectory}/{KouhaiStoryPackConstants.PUBLISH_FILENAME}";
             var pubData = KouhaiPublishingData.GetFromFile(pubPath);
             titleText.text = pubData.ProjectName;
             descText.text = pubData.ProjectDescription;

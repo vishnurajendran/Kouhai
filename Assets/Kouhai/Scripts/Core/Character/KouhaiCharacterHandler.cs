@@ -42,6 +42,10 @@ public class KouhaiCharacterHandler : MonoBehaviour
         }
         image.sprite = KouhaiAssetManager.LoadAsset<Sprite>(characterImagePath);
         image.transform.position = transform.FindDeepChild($"Loc_{position}").position;
+        image.GetComponent<RectTransform>().sizeDelta =
+            new Vector2(image.sprite.texture.width, image.sprite.texture.width);
+        
+        Debug.Log("Showing character");
     }
 
     public void HideCharacter(string name)
