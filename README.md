@@ -1,5 +1,11 @@
 # Kouhai
-Kouhai is an easy way to develop visual novels inside unity.
-This project is a work in progress. more info will be added as development proceeds
-### Progress
+Kouhai is an platform for developing and playing visual novels.
 ![](https://media2.giphy.com/media/6jwiLLofYk0Q2nKIPg/giphy.gif?cid=790b7611bc1d0fd571e5efec636c3d1765149840314329a6&rid=giphy.gif&ct=g)
+
+## Features
+ - Play and create Story Packs.
+ - Built-in support for visual effects.
+ - Lua based scripting.
+ - Easy to use Lua based API.
+ - Built-in developer console.
+ - CPU and RAM usage counters.
