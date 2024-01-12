@@ -6,6 +6,6 @@ Kouhai is an platform for developing and playing visual novels.
  - Play and create Story Packs.
  - Built-in support for visual effects.
  - Lua based scripting.
- - Easy to use Lua based API.
+ - Easy to use API.
  - Built-in developer console.
  - CPU and RAM usage counters.
